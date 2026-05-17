@@ -14,16 +14,20 @@
 
 <body>
   <header>
-    <select id="difficulty_select">
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-    <button>Start</button>
-    <button>Reset</button>
-    <div>Time: <span id="time">0</span></div>
-    <div>Clicks: <span id="num_clicks">0</span></div>
-    <div>Matches: <span id="num_matches">0</span></div>
+    <span id="controls">
+      <select id="difficulty_select">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <button>Start</button>
+      <button>Reset</button>
+    </span>
+    <span id="stats">
+      <div>Time: <span id="time">0</span></div>
+      <div>Clicks: <span id="num_clicks">0</span></div>
+      <div>Matches: <span id="num_matches">0</span></div>
+    </span>
   </header>
   <div id="game_grid"></div>
   <div id="theme_menu">
@@ -34,7 +38,7 @@
     </button>
   </div>
   <button id="theme_menu_button">
-    Select Theme
+    Change Theme
   </button>
 </body>
 

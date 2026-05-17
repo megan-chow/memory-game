@@ -1,7 +1,7 @@
 :root {
   --background-image: url("images/forest.png");
   --primary-colour: #003c00;
-  --secondary-colour: green;
+  --secondary-colour: darkseagreen;
 }
 
 body {
@@ -15,17 +15,20 @@ body {
 header {
   background-color: var(--primary-colour);
   height: 12vh;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
   border-bottom: gray 1pt solid;
   box-sizing: border-box;
   align-items: center;
-  flex-grow: 1;
 }
 
-header select, header button {
-  height: 60%;
+#controls {
+  height: 72%;
+}
+
+#controls select, #controls button {
+  height: 100%;
 }
 
 select, button {
@@ -36,11 +39,21 @@ select, button {
 
 select {
   width: 8rem;
+  padding-left: 1rem;
 }
 
 button {
   width: 5rem;
 }
+
+#stats {
+  display:flex;
+  gap: 2rem;
+}
+
+/*
+ * GAME BOARD
+ */
 
 #game_grid {
   z-index: 0;
@@ -132,7 +145,7 @@ img {
   position: absolute;
   width: 10rem;
   height: 4rem;
-  right: 4%;
+  right: 2%;
   bottom: 4%;
   border-radius: 1rem;
 }

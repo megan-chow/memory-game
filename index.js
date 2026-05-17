@@ -5,14 +5,14 @@ const MAX_NUMBER_POKEMON = 1350;
 const DIFFICULTIES = {
   "easy": [2, 3],
   "medium": [3, 4],
-  "hard": [4, 5]
+  "hard": [3, 6]
 }
 
 const THEMES = {
   forest: {
     background: "url('images/forest.png')",
     primary_colour: "#003c00",
-    secondary_colour: "green"
+    secondary_colour: "darkseagreen"
   },
   sea: {
     background: "url('images/sea.png')",
@@ -26,7 +26,7 @@ const THEMES = {
   }
 }
 
-let difficulty = "medium";
+let difficulty = "hard";
 let numClicks = 0;
 let numMatches = 0;
 
