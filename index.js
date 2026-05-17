@@ -1,51 +1,122 @@
 let MAX_NUMBER_POKEMON = 1350;
+let DIFFICULTIES = {
+  "easy": [2, 3],
+  "medium": [3, 4],
+  "hard": [4, 5]
+}
 
-async function selectRandomPokemon(numPokemon) {
-  let pokemonUrls = new Set();
-  while(pokemonUrls.size < numPokemon) {
+let difficulty = "medium";
+let numClicks = 0;
+let numMatches = 0;
+
+async function selectRandomPokemon(numCards) {
+  let urls = new Set();
+  while(urls.size < numCards / 2) {
     let random = Math.floor(Math.random() * MAX_NUMBER_POKEMON);
     let response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${random}&limit=1`);
     let jsonObj = await response.json();
     
     let pokemon = jsonObj.results[0];
-    pokemonUrls.add(pokemon.url);
+    urls.add(pokemon.url);
   }
-  return pokemonUrls;
+
+  console.log("num pokemon selected: " + urls.size);
+  
+  let pokemonDetails = [];
+  for(const url of urls) {
+    let response = await fetch(url);
+    let pokemonObj = await response.json();
+    pokemonDetails.push(pokemonObj);
+    pokemonDetails.push(pokemonObj);
+  }
+
+  return shuffle(pokemonDetails);
 }
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
-function setup () {
+async function dealCards() {
+  let numCards = DIFFICULTIES[difficulty][0] * DIFFICULTIES[difficulty][1];
+  let pokemon = await selectRandomPokemon(numCards);
+  for(let i = 0; i < DIFFICULTIES[difficulty][0]; i++) {
+    let row = '<div class="grid_row">';
+    for(let j = 0; j < DIFFICULTIES[difficulty][1]; j++) {
+      let index = i * DIFFICULTIES[difficulty][1] + j;
+      console.log(pokemon[index]);
+      row +=
+        `
+        <div id="card${index}" class="card">
+          <img id="img${index}" class="front_face" src="${pokemon[index].sprites.other['official-artwork'].front_default}" alt="">
+          <img class="back_face" src="back.webp" alt="">
+        </div>
+        `;
+    }
+    row += "</div>";
+    $("#game_grid").append(row);
+  }
+}
+
+function setClicks(newNumClicks) {
+  numClicks = newNumClicks;
+  document.getElementById("num_clicks").innerHTML = numClicks;
+}
+
+function setMatches(newNumMatches) {
+  numMatches = newNumMatches;
+  document.getElementById("num_matches").innerHTML = numMatches;
+  let matchesToWin = DIFFICULTIES[difficulty][0] * DIFFICULTIES[difficulty][1] / 2
+  if(numMatches == matchesToWin) {
+    win();
+  }
+}
+
+function win() {
+
+}
+
+async function setup () {
+  await dealCards();
   let firstCard = undefined
   let secondCard = undefined
-  console.log(selectRandomPokemon(3));
   $(".card").on(("click"), function () {
     if(firstCard && secondCard) return;
+    if(firstCard && $(this).attr("id") == firstCard.attr("id")) return;
+    setClicks(++numClicks);
     $(this).toggleClass("flip");
 
     if (!firstCard)
-      firstCard = $(this).find(".front_face")[0]
+      firstCard = $(this)
     else {
-      secondCard = $(this).find(".front_face")[0]
+      secondCard = $(this);
       console.log(firstCard, secondCard);
-      if (firstCard.src == secondCard.src) {
+      if (firstCard.find(".front_face")[0].src == secondCard.find(".front_face")[0].src) {
         console.log("match")
-        $(`#${firstCard.id}`).parent().off("click")
-        $(`#${secondCard.id}`).parent().off("click")
+        firstCard.off("click");
+        secondCard.off("click");
         firstCard = undefined;
         secondCard = undefined;
+        setMatches(++numMatches);
       } else {
         console.log("no match")
         setTimeout(() => {
-          // $(`#${firstCard.id}`).parent().toggleClass("flip")
-          // $(`#${secondCard.id}`).parent().toggleClass("flip")
-          $(`#${firstCard.id}`).parent().toggleClass("flip");
-          $(`#${secondCard.id}`).parent().toggleClass("flip");
+          firstCard.toggleClass("flip");
+          secondCard.toggleClass("flip");
           firstCard = undefined;
           secondCard = undefined;
         }, 1000)
       }
     }
   });
+}
+
+function menu() {
+
 }
 
 $(document).ready(setup)
