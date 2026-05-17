@@ -1,8 +1,19 @@
+:root {
+  --background-image: url("images/forest.png");
+  --primary-colour: #003c00;
+  --secondary-colour: green;
+}
+
 body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: lightgrey;
   margin: 0px;
+  background-image: var(--background-image);
+  background-size: cover;
 }
 
 header {
+  background-color: var(--primary-colour);
   height: 12vh;
   padding: 0.5rem;
   display: flex;
@@ -13,8 +24,14 @@ header {
   flex-grow: 1;
 }
 
-select, button {
+header select, header button {
   height: 60%;
+}
+
+select, button {
+  background-color: var(--secondary-colour);
+  font-size: 14pt;
+  border-radius: 1rem;
 }
 
 select {
@@ -26,6 +43,7 @@ button {
 }
 
 #game_grid {
+  z-index: 0;
   width: 80vw;
   height: 88vh;
   margin: auto;
@@ -81,6 +99,58 @@ img {
 
 .front_face {
   transform: rotateY(180deg);
-  background-color: lightsalmon;
-  border-color: orangered;
+  background-color: var(--secondary-colour);
+  border-color: var(--primary-colour);
+}
+
+/*
+ * MENUS
+ */
+
+#theme_menu {
+  width: 60vw;
+  height: 60vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary-colour);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+}
+
+#theme_menu_button {
+  position: absolute;
+  width: 10rem;
+  height: 4rem;
+  right: 4%;
+  bottom: 4%;
+  border-radius: 1rem;
+}
+
+#theme_options {
+  display: flex;
+  width: 100%;
+  height: 40%;
+  justify-content: space-between;
+}
+
+.theme_option {
+  width: 30%;
+  height: 100%;
+}
+
+.theme_option button {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
 }
