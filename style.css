@@ -4,7 +4,25 @@ body {
 
 header {
   height: 12vh;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
   border-bottom: gray 1pt solid;
+  box-sizing: border-box;
+  align-items: center;
+  flex-grow: 1;
+}
+
+select, button {
+  height: 60%;
+}
+
+select {
+  width: 8rem;
+}
+
+button {
+  width: 5rem;
 }
 
 #game_grid {
