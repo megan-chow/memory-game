@@ -17,7 +17,7 @@ const THEMES = {
   },
   sea: {
     background: "url('images/sea.png')",
-    primary_colour: "navy",
+    primary_colour: "#0f529b",
     secondary_colour: "skyblue"
   },
   cave: {
@@ -62,14 +62,13 @@ function resetCharge() {
 }
 
 function useRadar() {
-  if (energy == DIFFICULTIES[difficulty][2]) {
+  if (energy == DIFFICULTIES[difficulty][2] && firstCard) {
     const radarHints = DIFFICULTIES[difficulty][3];
 
     // Find all unmatched, unflipped cards (excluding currently flipped firstCard)
     let unflippedCards = $(".card").filter(function () {
       return !$(this).hasClass("flip");
     });
-
     // If there's a firstCard waiting, find its unflipped match
     if (firstCard) {
       const firstSrc = firstCard.find(".sprite")[0].src;
@@ -84,17 +83,9 @@ function useRadar() {
       matchingCard.add($(randomHints)).each(function () {
         triggerWiggle($(this));
       });
-    } else {
-      // No firstCard — just wiggle <radarHints> random unflipped cards
-      let randomHints = shuffle([...unflippedCards]).slice(0, radarHints);
-      $(randomHints).each(function () {
-        triggerWiggle($(this));
-      });
     }
 
-    // Reset energy
-    energy = 0;
-    $("#progress_fill").css("width", "0%");
+    resetCharge();
   }
 }
 
@@ -200,10 +191,21 @@ function stopTimer() {
   clearTimeout(timerId);
 }
 
-function win() {
+function endGame() {
   gameActive = false;
   stopTimer();
   $("#win_lose_popup").css("display", "flex");
+
+}
+
+function win() {
+  $("#win_lose_message").text("You win!")
+  endGame();
+}
+
+function lose() {
+  $("#win_lose_message").text("Time's Up!")
+  endGame();
 }
 
 function clearBoard() {

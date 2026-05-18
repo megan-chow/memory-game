@@ -12,7 +12,12 @@ body {
   background-size: cover;
 }
 
-button, select, p, div, span {
+button, select {
+  font-size: 13pt;
+  font-weight: normal;
+}
+
+p, div, span {
   font-size: 14pt;
   font-weight: normal;
 }
@@ -26,7 +31,7 @@ h1 {
 header {
   background-color: var(--primary-colour);
   height: 12vh;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   display: flex;
   justify-content: space-between;
   border-bottom: gray 1pt solid;
@@ -34,8 +39,8 @@ header {
   align-items: center;
 }
 
-#controls {
-  height: 72%;
+#controls, #theme_menu_button {
+  height: 88%;
 }
 
 #controls select, #controls button {
@@ -57,7 +62,13 @@ button {
 }
 
 #stats {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  height: 100%;
+  border: 1px solid darkgrey;
+  border-radius: 1rem;
   display:flex;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -187,6 +198,39 @@ button {
   border-radius: 50%;
 }
 
+#radar {
+  background-color: var(--primary-colour);
+  position: absolute;
+  right: 2%;
+  bottom: 4%;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#radar img {
+  height: 84%;
+  object-fit: contain;
+}
+
+#radar #progress_bar {
+  height: 6%;
+  width: 80%;
+  border: 0.1rem solid black;
+  border-radius: 0.4rem;
+  background-color: lightgray;
+  object-fit: contain;
+}
+
+#progress_fill {
+  width: 0%;
+  height: 100%;
+  background-color: yellow;
+}
+
 @keyframes wiggle {
   0%   { transform: rotate(0deg); }
   20%  { transform: rotate(-deg); }
@@ -234,41 +278,7 @@ button {
   right: 2%;
   bottom: 4%; */
   width: 10rem;
-  height: 72%;
   border-radius: 1rem;
-}
-
-#radar {
-  background-color: var(--primary-colour);
-  position: absolute;
-  right: 2%;
-  bottom: 4%;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#radar img {
-  height: 84%;
-  object-fit: contain;
-}
-
-#radar #progress_bar {
-  height: 6%;
-  width: 80%;
-  border: 0.1rem solid black;
-  border-radius: 0.4rem;
-  background-color: lightgray;
-  object-fit: contain;
-}
-
-#progress_fill {
-  width: 0%;
-  height: 100%;
-  background-color: yellow;
 }
 
 #theme_options {
