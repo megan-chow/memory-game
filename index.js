@@ -1,6 +1,6 @@
 const root = document.documentElement;
 
-const MAX_NUMBER_POKEMON = 1100;
+const MAX_NUMBER_POKEMON = 1028;
 
 // [numRows, numCols, maxCharge, radarHints]
 const DIFFICULTIES = {
@@ -52,6 +52,12 @@ function addCharge(amount) {
   let fill_percent = (energy / max) * 100;
   console.log(fill_percent)
   $("#progress_fill").css("width", `${fill_percent}%`);
+
+}
+
+function resetCharge() {
+  energy = 0;
+  $("#progress_fill").css("width", "0%");
 
 }
 
@@ -215,6 +221,7 @@ async function reset() {
   matchesToWin = DIFFICULTIES[difficulty][0] * DIFFICULTIES[difficulty][1] / 2;
   $("#total_pairs").text(DIFFICULTIES[difficulty][0] * DIFFICULTIES[difficulty][1] / 2);
   setMatches(0);
+  resetCharge();
 }
 
 function handleCardClick() {
