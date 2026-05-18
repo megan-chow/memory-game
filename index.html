@@ -20,26 +20,41 @@
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
       </select>
-      <button>Start</button>
-      <button>Reset</button>
+      <button id="start">Start</button>
+      <button id="reset">Reset</button>
     </span>
     <span id="stats">
-      <div>Time: <span id="time">0</span></div>
+      <div>Time: <span id="time">60</span></div>
       <div>Clicks: <span id="num_clicks">0</span></div>
       <div>Matches: <span id="num_matches">0</span></div>
+      <div>Remaining pairs: <span id="remaining_pairs">0</span></div>
+      <div>Total pairs: <span id="total_pairs">3</span></div>
     </span>
+    <button id="theme_menu_button">
+      Change Theme
+    </button>
   </header>
   <div id="game_grid"></div>
+
+  <button id="radar">
+    <img src="images/radar.png">
+    <div id="progress_bar">
+      <div id="progress_fill"></div>
+    </div>
+  </button>
   <div id="theme_menu">
-    <p>Select a theme:</p>
+    <h1>Select a theme:</h1>
     <div id="theme_options"></div>
-    <button id="close_theme_menu">
+    <button id="close_theme_menu" class="close_button">
       Done
     </button>
   </div>
-  <button id="theme_menu_button">
-    Change Theme
-  </button>
+  <div id="win_lose_popup">
+    <p>You win!</p>
+    <button id="play_again" class="close_button">
+      Play Again
+    </button>
+  </div>
 </body>
 
 </html>

@@ -5,11 +5,22 @@
 }
 
 body {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', sans-serif;
   color: lightgrey;
   margin: 0px;
   background-image: var(--background-image);
   background-size: cover;
+}
+
+button, select, p, div, span {
+  font-size: 14pt;
+  font-weight: normal;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 24pt;
 }
 
 header {
@@ -33,7 +44,6 @@ header {
 
 select, button {
   background-color: var(--secondary-colour);
-  font-size: 14pt;
   border-radius: 1rem;
 }
 
@@ -63,20 +73,26 @@ button {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   box-sizing: border-box;
 }
 
 .grid_row {
   display: flex;
+  width: 100%;
+  max-height: 40%;
   flex: 1;
   gap: 2rem;
   justify-content: center;
 }
 
+/*
+ * CARDS
+ */
+
 .card {
   height: 100%;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 4 / 5;
   position: relative;
   transition: transform 1s;
   perspective: 1000px;
@@ -84,9 +100,8 @@ button {
 
 }
 
-img {
-  width: 100%;
-  height: 100%;
+.back_face {
+  padding: 1.6rem;
   object-fit: contain;
 }
 
@@ -95,14 +110,14 @@ img {
   position: absolute;
   backface-visibility: hidden;
 
+  width: 100%;
+  height: 100%;
+
   box-sizing: border-box;
   border-radius: 0.5rem;
   border: 0.64rem solid;
-}
-
-.back_face {
-  background-color: blue;
-  border-color: darkblue;
+  background-color: var(--secondary-colour);
+  border-color: var(--primary-colour);
 }
 
 .flip {
@@ -112,17 +127,84 @@ img {
 
 .front_face {
   transform: rotateY(180deg);
-  background-color: var(--secondary-colour);
-  border-color: var(--primary-colour);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sprite {
+  top: 0;
+  width: 100%;
+  height: 80%;
+}
+
+.nameplate {
+  width: 96%;
+  height: 16%;
+  padding: 0.2rem;
+  border-radius: 2rem;
+  background-color: var(--primary-colour);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.pokemon_name {
+  color: white;
+  margin: 0;
+  text-align: center;
+  font-size: 11pt;
+}
+
+.pokeball {
+  height: 90%;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 0.1rem solid #000;
+  position: relative;
+  /* Red top half, black center line, white bottom half */
+  background: linear-gradient(
+    to bottom,
+    #ff0000 0% 45%,
+    #000000 45% 55%,
+    #ffffff 55% 100%
+  );
+}
+
+.pokeball::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 30%;
+  background: #ffffff;
+  border: 0.2rem solid #000;
+  border-radius: 50%;
+}
+
+@keyframes wiggle {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(-deg); }
+  40%  { transform: rotate(8deg); }
+  60%  { transform: rotate(-8deg); }
+  80%  { transform: rotate(8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wiggle {
+  animation: wiggle 1s ease-in-out;
 }
 
 /*
- * MENUS
+ * MENUS / POPUPS
  */
 
-#theme_menu {
-  width: 60vw;
-  height: 60vh;
+#theme_menu, #win_lose_popup {
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -139,15 +221,54 @@ img {
   justify-content: space-between;
   align-items: center;
   display: none;
+
+}
+
+#theme_menu {
+  width: 60vw;
+  height: 60vh;
 }
 
 #theme_menu_button {
-  position: absolute;
+  /* position: absolute;
+  right: 2%;
+  bottom: 4%; */
   width: 10rem;
-  height: 4rem;
+  height: 72%;
+  border-radius: 1rem;
+}
+
+#radar {
+  background-color: var(--primary-colour);
+  position: absolute;
   right: 2%;
   bottom: 4%;
+  width: 8rem;
+  height: 8rem;
   border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#radar img {
+  height: 84%;
+  object-fit: contain;
+}
+
+#radar #progress_bar {
+  height: 6%;
+  width: 80%;
+  border: 0.1rem solid black;
+  border-radius: 0.4rem;
+  background-color: lightgray;
+  object-fit: contain;
+}
+
+#progress_fill {
+  width: 0%;
+  height: 100%;
+  background-color: yellow;
 }
 
 #theme_options {
@@ -166,4 +287,8 @@ img {
   width: 100%;
   height: 100%;
   background-size: cover;
+}
+
+.close_button {
+  height: 3rem;
 }
