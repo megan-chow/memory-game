@@ -33,6 +33,7 @@ let timerId = null;
 let numClicks = 0;
 let numMatches = 0;
 let matchesToWin = 3;
+let maxCharge = 4;
 let gameActive = false;
 let firstCard = undefined;
 let secondCard = undefined;
@@ -47,15 +48,15 @@ function applyTheme(newTheme) {
 }
 
 function addCharge(amount) {
-  let max = DIFFICULTIES[difficulty][2];
-  energy = Math.min(energy + amount, max);
-  let fill_percent = (energy / max) * 100;
+  energy = Math.min(energy + amount, maxCharge);
+  let fill_percent = (energy / maxCharge) * 100;
   console.log(fill_percent)
   $("#progress_fill").css("width", `${fill_percent}%`);
 
 }
 
 function resetCharge() {
+  let maxCharge = DIFFICULTIES[difficulty][2];
   energy = 0;
   $("#progress_fill").css("width", "0%");
 
@@ -135,6 +136,7 @@ async function dealCards() {
     let row = '<div class="grid_row">';
     for(let j = 0; j < DIFFICULTIES[difficulty][1]; j++) {
       let index = i * DIFFICULTIES[difficulty][1] + j;
+      let name = pokemon[index].name[0].toUpperCase() + pokemon[index].name.substring(1);
       console.log(pokemon[index]);
       row +=
         `
@@ -143,7 +145,7 @@ async function dealCards() {
             <img id="img${index}" class="sprite" src="${pokemon[index].sprites.other['official-artwork'].front_default}" alt=""></img>
             <div class="nameplate">
               <div class="pokeball"></div>
-              <p class="pokemon_name">${pokemon[index].name}</p>
+              <p class="pokemon_name">${name}</p>
               <div class="pokeball"></div>
             </div>
           </div>
@@ -177,7 +179,6 @@ function setTime(newTime) {
 }
 
 function startTimer() {
-  // if(gameActive) return;
   document.getElementById("time").innerHTML = time--;
   if (time >= 0) {
     timerId = setTimeout(startTimer, 1000);
@@ -264,9 +265,10 @@ async function setup () {
   await dealCards();
 
   $("#start").on(("click"), async function () {
+    if (gameActive) return;  // guard goes here instead
+    gameActive = true;
     $(".card").on(("click"), handleCardClick);
     startTimer();
-    gameActive = true;
   });
 
   $("#reset").on(("click"), async function () {
