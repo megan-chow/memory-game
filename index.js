@@ -205,6 +205,7 @@ function win() {
 }
 
 function lose() {
+  $(".card").off("click");
   $("#win_lose_message").text("Time's Up!")
   endGame();
 }
