@@ -27,6 +27,7 @@ const THEMES = {
   }
 }
 
+let isResetting = false;
 let difficulty = "easy";
 let time = 60;
 let timerId = null;
@@ -217,6 +218,8 @@ function clearBoard() {
 }
 
 async function reset() {
+  if (isResetting) return;
+  isResetting = true;
   clearBoard();
   await dealCards();
   stopTimer();
@@ -226,6 +229,7 @@ async function reset() {
   $("#total_pairs").text(DIFFICULTIES[difficulty][0] * DIFFICULTIES[difficulty][1] / 2);
   setMatches(0);
   resetCharge();
+  isResetting = false;
 }
 
 function handleCardClick() {
