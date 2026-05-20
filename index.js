@@ -50,7 +50,7 @@ function applyTheme(newTheme) {
 function addCharge(amount) {
   energy = Math.min(energy + amount, maxCharge);
   let fill_percent = (energy / maxCharge) * 100;
-  console.log(fill_percent)
+  // console.log(fill_percent)
   $("#progress_fill").css("width", `${fill_percent}%`);
 
 }
@@ -108,7 +108,7 @@ async function selectRandomPokemon(numCards) {
     urls.add(pokemon.url);
   }
 
-  console.log("num pokemon selected: " + urls.size);
+  // console.log("num pokemon selected: " + urls.size);
   
   let pokemonDetails = [];
   for(const url of urls) {
@@ -137,7 +137,7 @@ async function dealCards() {
     for(let j = 0; j < DIFFICULTIES[difficulty][1]; j++) {
       let index = i * DIFFICULTIES[difficulty][1] + j;
       let name = pokemon[index].name[0].toUpperCase() + pokemon[index].name.substring(1);
-      console.log(pokemon[index]);
+      // console.log(pokemon[index]);
       row +=
         `
         <div id="card${index}" class="card">
@@ -239,7 +239,7 @@ function handleCardClick() {
     firstCard = $(this)
   else {
     secondCard = $(this);
-    console.log(firstCard, secondCard);
+    // console.log(firstCard, secondCard);
     if (firstCard.find(".sprite")[0].src == secondCard.find(".sprite")[0].src) {
       console.log("match")
       firstCard.off("click");
