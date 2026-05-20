@@ -56,7 +56,7 @@ function addCharge(amount) {
 }
 
 function resetCharge() {
-  let maxCharge = DIFFICULTIES[difficulty][2];
+  maxCharge = DIFFICULTIES[difficulty][2];
   energy = 0;
   $("#progress_fill").css("width", "0%");
 
